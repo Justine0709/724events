@@ -18,18 +18,21 @@ const EventList = () => {
       ? data?.events
       : data?.events) || []
   ).filter((event, index) => {
-    if (
-      (currentPage - 1) * PER_PAGE <= index &&
-      PER_PAGE * currentPage > index
-    ) {
-      return true;
-    }
-    return false;
+
+    const typeFilter =!type || event.type ===type;
+    const indexFilter = (currentPage - 1) * PER_PAGE <= index && PER_PAGE * currentPage > index;
+    return typeFilter && indexFilter;
+    
+
   });
+
+
   const changeType = (evtType) => {
     setCurrentPage(1);
     setType(evtType);
   };
+ 
+
   const pageNumber = Math.floor((filteredEvents?.length || 0) / PER_PAGE) + 1;
   const typeList = new Set(data?.events.map((event) => event.type));
   return (
@@ -42,7 +45,7 @@ const EventList = () => {
           <h3 className="SelectTitle">Catégories</h3>
           <Select
             selection={Array.from(typeList)}
-            onChange={(value) => (value ? changeType(value) : changeType(null))}
+            onChange={(value) => ( value ? changeType(value) : changeType(null))}
           />
           <div id="events" className="ListContainer">
             {filteredEvents.map((event) => (

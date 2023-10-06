@@ -12,8 +12,12 @@ import Form from "../../containers/Form";
 import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
+
 const Page = () => {
-  const {last} = useData()
+  const {last} = useData();
+  console.log(useData())
+  console.log(useData)
+
   return <>
     <header>
       <Menu />
